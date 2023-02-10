@@ -1,0 +1,45 @@
+export ZOPEN_TARBALL_URL="https://fossies.org/linux/misc/getopt-1.1.6.tar.gz"
+export ZOPEN_TARBALL_DEPS="make zoslib gettext diffutils coreutils"
+export ZOPEN_TYPE="TARBALL"
+export ZOPEN_CONFIGURE="skip"
+export ZOPEN_EXTRA_CPPFLAGS="-I\${GETTEXT_HOME}/include"
+export ZOPEN_EXTRA_LDFLAGS="-L\${GETTEXT_HOME}/lib"
+export ZOPEN_EXTRA_LIBS="-lgettext"
+#FIXME: GETTEXT causes all tests to fail, investigatation needed
+export ZOPEN_MAKE_OPTS="prefix=\$ZOPEN_INSTALL_DIR LIBCGETOPT=0 WITHOUT_GETTEXT=1"
+export ZOPEN_CHECK_OPTS="test"
+export ZOPEN_INSTALL_OPTS="install prefix=\$ZOPEN_INSTALL_DIR LIBCGETOPT=0 WITHOUT_GETTEXT=1"
+
+zopen_check_results()
+{
+  dir="$1"
+  pfx="$2"
+  chk="$1/$2_check.log"
+
+  # Echo the following information to gauge build health
+  echo "actualFailures:$(find tests/ -name "*.exitcode" | xargs grep -v 0 | wc -l | tr -d ' ')"
+  echo "totalTests:$(find tests/ -name "*.exitcode" | wc -l | tr -d ' ')"
+  echo "expectedFailures:11"
+}
+
+zopen_append_to_env()
+{
+  # echo envars outside of PATH, MANPATH, LIBPATH
+}
+
+zopen_append_to_setup()
+{
+  # echo commands that will run when installing via setup.sh
+}
+
+zopen_pre_install()
+{
+  mkdir -p "$1"
+}
+
+zopen_get_version()
+{
+  # Modify to echo the version of your tool/library
+  # Rather than hardcoding the version, obtain the version by running the tool/library
+  ./getopt --version | awk -F" " '{print $3}'
+}
