@@ -10,6 +10,8 @@ export ZOPEN_MAKE_OPTS="prefix=\$ZOPEN_INSTALL_DIR LIBCGETOPT=0 WITHOUT_GETTEXT=
 export ZOPEN_CHECK_OPTS="test"
 export ZOPEN_INSTALL_OPTS="install prefix=\$ZOPEN_INSTALL_DIR LIBCGETOPT=0 WITHOUT_GETTEXT=1"
 
+export ZOPEN_COMP="clang"
+
 zopen_check_results()
 {
   dir="$1"
@@ -24,7 +26,14 @@ zopen_check_results()
 
 zopen_append_to_env()
 {
-  # echo envars outside of PATH, MANPATH, LIBPATH
+cat <<ZZ
+if [ ! -z "\$ZOPEN_IN_ZOPEN_BUILD" ]; then
+  export ZOPEN_EXTRA_CFLAGS="\${ZOPEN_EXTRA_CFLAGS} -I\$PWD/include"
+  export ZOPEN_EXTRA_CXXFLAGS="\${ZOPEN_EXTRA_CXXFLAGS} -I\$PWD/include"
+  export ZOPEN_EXTRA_LDFLAGS="\${ZOPEN_EXTRA_LDFLAGS} -L\$PWD/lib"
+  export ZOPEN_EXTRA_LIBS="\${ZOPEN_EXTRA_LIBS} -lgetopt \$PWD/lib/libgetopt.a"
+fi
+ZZ
 }
 
 zopen_append_to_setup()
