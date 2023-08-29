@@ -1,12 +1,13 @@
 diff --git a/Makefile b/Makefile
-index ac9d1a4..727ac95 100644
+index ac9d1a4..9feffb6 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -8,9 +8,10 @@ man1dir=$(mandir)/man1
+@@ -8,9 +8,11 @@ man1dir=$(mandir)/man1
  sharedir=$(prefix)/share
  getoptdir=$(sharedir)/getopt
  localedir=$(sharedir)/locale
 +libdir=$(prefix)/lib
++includedir=$(prefix)/include
  
  # Define this to 0 to use the getopt(3) routines in this package.
 -LIBCGETOPT=1
@@ -14,7 +15,7 @@ index ac9d1a4..727ac95 100644
  
  # Define this to 1 if you do not have the gettext routines
  WITHOUT_GETTEXT=0
-@@ -28,13 +29,14 @@ LD=ld
+@@ -28,13 +30,14 @@ LD=ld
  RM=rm -f
  INSTALL=install
  MSGFMT=msgfmt
@@ -31,7 +32,7 @@ index ac9d1a4..727ac95 100644
  endif
  WARNINGS=-Wall \
           -W -Wshadow -Wpointer-arith -Wbad-function-cast -Wcast-qual \
-@@ -54,19 +56,26 @@ objects=$(sources:.c=.o)
+@@ -54,19 +57,27 @@ objects=$(sources:.c=.o)
  
  binaries=getopt
  
@@ -39,7 +40,7 @@ index ac9d1a4..727ac95 100644
 +archive_objects=$(objects)
 +
 +$(archive_target):	$(archive_objects)
-+		$(AR) rcs $@ $(objects)
++		$(AR) rcs $@ $(filter gnu/%,$(objects)) 
 +
  .PHONY: all clean realclean 
 -all: $(binaries) all_po
@@ -54,10 +55,11 @@ index ac9d1a4..727ac95 100644
  
  install: getopt install_po
 -	$(INSTALL) -m 755 -d $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir)
-+	$(INSTALL) -m 755 -d $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir) $(DESTDIR)$(libdir)
++	$(INSTALL) -m 755 -d $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir)
  	$(INSTALL) -m 755 getopt $(DESTDIR)$(bindir)
  	$(INSTALL) -m 644 getopt.1 $(DESTDIR)$(man1dir)
 +	$(INSTALL) -m 644 libgetopt.a $(DESTDIR)$(libdir)
++	$(INSTALL) -m 644 gnu/getopt.h $(DESTDIR)$(includedir)
  
  install_doc:
  	$(INSTALL) -m 755 -d $(DESTDIR)$(getoptdir)
