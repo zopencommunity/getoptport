@@ -1,10 +1,15 @@
-export ZOPEN_STABLE_URL="https://fossies.org/linux/misc/old/getopt-1.1.6.tar.gz"
+# bump: getopt-version /GETOPT_VERSION="(.*)"/ https://fossies.org/linux/misc/old/|re:/getopt-([\d.]+).tar.gz/$1/|semver:*
+GETOPT_VERSION="1.1.6"
+
+export ZOPEN_STABLE_URL="https://fossies.org/linux/misc/old/getopt-${GETOPT_VERSION}.tar.gz"
 export ZOPEN_STABLE_DEPS="make zoslib gettext diffutils coreutils"
 export ZOPEN_BUILD_LINE="STABLE"
+
 export ZOPEN_CONFIGURE="skip"
 export ZOPEN_EXTRA_CPPFLAGS="-I\${GETTEXT_HOME}/include"
 export ZOPEN_EXTRA_LDFLAGS="-L\${GETTEXT_HOME}/lib"
 export ZOPEN_EXTRA_LIBS="-lgettext"
+
 #FIXME: GETTEXT causes all tests to fail, investigatation needed
 export ZOPEN_MAKE_OPTS="prefix=\$ZOPEN_INSTALL_DIR LIBCGETOPT=0 WITHOUT_GETTEXT=1"
 export ZOPEN_CHECK_OPTS="test"
