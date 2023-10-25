@@ -2,7 +2,6 @@
 GETOPT_VERSION="1.1.6"
 
 export ZOPEN_STABLE_URL="https://fossies.org/linux/misc/old/getopt-${GETOPT_VERSION}.tar.gz"
-# export ZOPEN_STABLE_URL="https://fossies.org/linux/misc/getopt-${GETOPT_VERSION}.tar.gz"
 export ZOPEN_STABLE_DEPS="make zoslib gettext diffutils coreutils"
 export ZOPEN_BUILD_LINE="STABLE"
 
