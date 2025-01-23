@@ -1,5 +1,5 @@
 diff --git a/Makefile b/Makefile
-index ac9d1a4..9feffb6 100644
+index ac9d1a4..62312fb 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -8,9 +8,11 @@ man1dir=$(mandir)/man1
@@ -51,7 +51,8 @@ index ac9d1a4..9feffb6 100644
 +	-$(RM) $(objects) $(binaries) $(archive_target)
  
  getopt: $(objects)
- 	$(CC) $(LDFLAGS) -o $@ $(objects)
+-	$(CC) $(LDFLAGS) -o $@ $(objects)
++	$(CC) $(LDFLAGS) -o $@ $(objects) $(LIBS)
  
  install: getopt install_po
 -	$(INSTALL) -m 755 -d $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir)
@@ -63,3 +64,16 @@ index ac9d1a4..9feffb6 100644
  
  install_doc:
  	$(INSTALL) -m 755 -d $(DESTDIR)$(getoptdir)
+diff --git a/Makefile.util-linux b/Makefile.util-linux
+index a8a8e9d..2680473 100644
+--- a/Makefile.util-linux
++++ b/Makefile.util-linux
+@@ -44,7 +44,7 @@ clean:
+ 	-$(RM) $(OBJECTS) $(BINARIES) 
+ 
+ getopt: $(OBJECTS)
+-	$(CC) $(LDFLAGS) $< -o $@
++	$(CC) $(LDFLAGS) $< -o $@ $(LIBS)
+ 
+ install: getopt
+ 	$(INSTALLDIR) $(USRBINDIR) $(MAN1DIR) $(GETOPTDIR)
