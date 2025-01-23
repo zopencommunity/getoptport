@@ -7,9 +7,6 @@ export ZOPEN_STABLE_DEPS="make zoslib gettext diffutils coreutils"
 export ZOPEN_BUILD_LINE="STABLE"
 
 export ZOPEN_CONFIGURE="skip"
-export ZOPEN_EXTRA_CPPFLAGS="-I\${GETTEXT_HOME}/include"
-export ZOPEN_EXTRA_LDFLAGS="-L\${GETTEXT_HOME}/lib"
-export ZOPEN_EXTRA_LIBS="-lgettext"
 
 #FIXME: GETTEXT causes all tests to fail, investigatation needed
 export ZOPEN_MAKE_OPTS="prefix=\$ZOPEN_INSTALL_DIR LIBCGETOPT=0 WITHOUT_GETTEXT=1"
@@ -34,8 +31,8 @@ zopen_append_to_env()
 {
 cat <<ZZ
 if [ ! -z "\$ZOPEN_IN_ZOPEN_BUILD" ]; then
-  export ZOPEN_EXTRA_CFLAGS="\${ZOPEN_EXTRA_CFLAGS} -I\$PWD/include"
-  export ZOPEN_EXTRA_CXXFLAGS="\${ZOPEN_EXTRA_CXXFLAGS} -I\$PWD/include"
+  export ZOPEN_EXTRA_CFLAGS="\${ZOPEN_EXTRA_CFLAGS} -I\$PWD/include -D__GNU_LIBRARY__=1"
+  export ZOPEN_EXTRA_CXXFLAGS="\${ZOPEN_EXTRA_CXXFLAGS} -I\$PWD/include -D__GNU_LIBRARY__=1"
   export ZOPEN_EXTRA_LDFLAGS="\${ZOPEN_EXTRA_LDFLAGS} -L\$PWD/lib"
   export ZOPEN_EXTRA_LIBS="\${ZOPEN_EXTRA_LIBS} -lgetopt"
 fi
