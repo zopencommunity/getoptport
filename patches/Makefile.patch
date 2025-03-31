@@ -1,7 +1,7 @@
-diff --git a/Makefile b/Makefile
+diff --git i/Makefile w/Makefile
 index ac9d1a4..62312fb 100644
---- a/Makefile
-+++ b/Makefile
+--- i/Makefile
++++ w/Makefile
 @@ -8,9 +8,11 @@ man1dir=$(mandir)/man1
  sharedir=$(prefix)/share
  getoptdir=$(sharedir)/getopt
@@ -64,16 +64,3 @@ index ac9d1a4..62312fb 100644
  
  install_doc:
  	$(INSTALL) -m 755 -d $(DESTDIR)$(getoptdir)
-diff --git a/Makefile.util-linux b/Makefile.util-linux
-index a8a8e9d..2680473 100644
---- a/Makefile.util-linux
-+++ b/Makefile.util-linux
-@@ -44,7 +44,7 @@ clean:
- 	-$(RM) $(OBJECTS) $(BINARIES) 
- 
- getopt: $(OBJECTS)
--	$(CC) $(LDFLAGS) $< -o $@
-+	$(CC) $(LDFLAGS) $< -o $@ $(LIBS)
- 
- install: getopt
- 	$(INSTALLDIR) $(USRBINDIR) $(MAN1DIR) $(GETOPTDIR)
